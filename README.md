@@ -80,24 +80,21 @@ Ansible Configuration for test practice
     ```
 
 4. Install Ansible on Controller.
-5. Run these command to set your default python to python3 as Pyhton is required to run ansible
-    ```
-    sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1
-    sudo update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1
-    ```
-6. Add the IP address of ansible nodes to ansible controller in default inventory file or new host file 
+5. Add the IP address and ansible default vars to overwrite variable value of ansible nodes to ansible controller in default inventory file or new host file 
     ```
         ---------- Create a file "hosts" ---------
         [ubuntu-server]
         3.84.24.76
         [ubuntu-server:vars]
         ansible_user=ubuntu
+        ansible_python_interpreter=/usr/bin/python3
         [amazon-server]
         3.84.24.76
         [amazon-server:vars]
         ansible_user=ec2-user
+        ansible_python_interpreter=/usr/bin/python3
     ```
-7. Ansible adhoc command to check the server is up
+6. Ansible adhoc command to check the server is up
     ```
         ------ Adhoc command pattern ----------
         Pattern - ansible [all/ip/group from inventory file] -i [inventory file name other than default] -m [module] -a [arguement]
