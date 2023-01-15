@@ -27,6 +27,13 @@ Ansible
         [webserver]
         web1.server.com
         web2.server.com
+    # -------- hostname with groups and associated group variable --------
+        [webserver]
+        web1.server.com
+        web2.server.com
+        [webserver:vars]
+        ansible_port=8020
+        ansible_user=root
     ```
 Ansible Use-Cases
 ===================
@@ -80,6 +87,7 @@ Ansible Configuration for test practice
 7. Ansible adhoc command to check the server is up
     ```
         ------ Adhoc command pattern ----------
-        Pattern - ansible [pattern] -i [inventory file name other than default] -m [module] -a [arguement]
+        Pattern - ansible [all/ip/group from inventory file] -i [inventory file name other than default] -m [module] -a [arguement]
         ansible all -i hosts -m ping
     ```
+
