@@ -53,9 +53,10 @@ Competitors of Ansible
 
 Ansible Configuration for test practice
 ========================================
-1. Create 2 ec2-server 
+1. Create 5 ec2-servers 
     - 1 is Ansible Controller
-    - 1 is Ansibler Node/Host
+    - 2 is Ansible Node/Host - Ubuntu
+    - 2 is Ansible Node/Host - Amazon-Linux
 
 2. Allowing passwordless ssh connection to all Nodes/host. Follow these steps on all nodes.
     ```
@@ -66,7 +67,8 @@ Ansible Configuration for test practice
         Search and Change line "PasswordAuthentication yes"
         Save & Quit
         ------ Restart the ssh ------
-        sudo service ssh restart
+        for ubuntu - sudo service ssh restart
+        for amazon-linux - sudo systemctl restart sshd
     ```
 
 3. Go To Controller Machine, Generate ssh key and add it to the multiple nodes/host.
@@ -77,12 +79,23 @@ Ansible Configuration for test practice
         ssh-copy-id <user@private-ip> -> ssh-copy-id ubuntu@172.31.11.38
     ```
 
-4. Install Ansible and Python on Controller.
-5. Install Python on Nodes/Hosts.
+4. Install Ansible on Controller.
+5. Run these command to set your default python to python3 as Pyhton is required to run ansible
+    ```
+    sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1
+    sudo update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1
+    ```
 6. Add the IP address of ansible nodes to ansible controller in default inventory file or new host file 
     ```
         ---------- Create a file "hosts" ---------
+        [ubuntu-server]
         3.84.24.76
+        [ubuntu-server:vars]
+        ansible_user=ubuntu
+        [amazon-server]
+        3.84.24.76
+        [amazon-server:vars]
+        ansible_user=ec2-user
     ```
 7. Ansible adhoc command to check the server is up
     ```
