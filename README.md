@@ -103,8 +103,16 @@ Ansible Configuration for test practice
 
 Ansible Playbook
 =================
-Ref Folder - Ansible-Learning
+- Ref Folder - Ansible-Learning
 
 Ansible Modules
 =================
-Ref - https://docs.ansible.com/ansible/2.9/modules/modules_by_category.html
+- Ref - https://docs.ansible.com/ansible/2.9/modules/modules_by_category.html
+- But In ansible version 2.10 or later, there is no concept of modules they are divided in 2 cases -
+    - ansible base - this repo contains the core ansible programs
+    - collection - modules and plugins move into various collections
+- Collection 
+    - A packaging format for bundling and distributing Ansible content.
+    - It can be released and installed independent of other collections.
+    - All modules are part of collections.
+- Collection Ref - https://docs.ansible.com/ansible/latest/collections/index.html
