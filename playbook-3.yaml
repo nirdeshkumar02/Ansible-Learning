@@ -6,13 +6,11 @@
   tasks:
     - name: Update apt and repo cache
       apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
-
     - name: Install node and npm
       apt:
         pkg:
           - nodejs
           - npm
-
     - name: Create New User for node app
       hosts: 172.31.87.144
       tasks:
@@ -21,7 +19,7 @@
             name: nirdesh
             password: nirdesh 
             group: admin
-
+---
 - name: Deploy the node application
   hosts: 172.31.87.144
   become: yes  
