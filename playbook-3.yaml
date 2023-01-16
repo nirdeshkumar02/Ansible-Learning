@@ -13,7 +13,6 @@
           - nodejs
           - npm
 
----
 - name: Create New User for node app
   hosts: 172.31.87.144
   tasks:
@@ -21,8 +20,7 @@
       user: 
         name: nirdesh
         group: admin
-        
----
+
 - name: Deploy the node application
   hosts: 172.31.87.144
   become: yes  
