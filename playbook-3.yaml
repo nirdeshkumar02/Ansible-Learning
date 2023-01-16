@@ -14,7 +14,7 @@
 
     - name: Unpack the app tar file and copy its data to remote server
       unarchive:
-        src: /home/ubuntu/app-1.0.0.tgz
+        src: /home/ubuntu/Ansible-Learning/nodejs-app-1.0.0.tgz
         dest: /home/ubuntu/
 
     - name: Install Dependencies
