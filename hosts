@@ -1,0 +1,15 @@
+[ubuntu-server]
+172.31.87.144
+172.31.80.94
+
+[ubuntu-server:vars]
+ansible_user=ubuntu
+ansible_python_interpreter=/usr/bin/python3
+
+[amazon-server]
+172.31.87.52
+172.31.94.117
+
+[amazon-server:vars]
+ansible_user=ec2-user
+ansible_python_interpreter=/usr/bin/python3

@@ -1,0 +1,13 @@
+---
+- name: "Stopping nginx web server"
+  hosts: ubuntu-server
+  become: true
+  tasks:
+    - name: Uninstall Nginx Server 
+      apt: 
+        name: nginx     # if no version provide it will download latest version else, you can provide nginx with version like nginx=2.3.1
+        state: absent
+    - name: Stop Nginx Server
+      service:
+        name: nginx
+        state: stopped
