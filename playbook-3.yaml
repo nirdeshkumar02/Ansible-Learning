@@ -19,7 +19,6 @@
             name: nirdesh
             password: nirdesh 
             group: admin
----
 - name: Deploy the node application
   hosts: 172.31.87.144
   become: yes  
