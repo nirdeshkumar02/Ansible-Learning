@@ -1,0 +1,38 @@
+---
+- name: Deploying NodeJS Applicaton on Server
+  hosts: 172.31.87.144
+  become: true
+  tasks:
+    - name: Update apt and repo cache
+      apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
+
+    - name: Install node and npm
+      apt:
+        pkg:
+          - nodejs
+          - npm
+
+    - name: Unpack the app tar file and copy its data to remote server
+      unarchive:
+        src: /home/ubuntu/app-1.0.0.tgz
+        dest: /home/ubuntu/
+
+    - name: Install Dependencies
+      npm:
+        path: /home/ubuntu/package
+    
+    #  As command and shell modules ain't idempotent so we should use conditional statement to provide idempotency
+    - name: Start the Applicaton
+      command:
+        chdir: /home/ubuntu/package/app
+        cmd: node server
+      # use this module to run node command in background othewise it will block the terminal and never exit 
+      async: 1000
+      poll: 0
+
+    - name: Ensure Applicaton is running
+      shell: ps aux | grep node
+      register: app_status # hepls in storing output in providing variable 
+    
+    - debug: msg={{app_status.stdout_lines}}
+

@@ -116,3 +116,27 @@ Ansible Modules
     - It can be released and installed independent of other collections.
     - All modules are part of collections.
 - Collection Ref - https://docs.ansible.com/ansible/latest/collections/index.html
+
+- To work with ansible 2.10 or later version
+    - By default, it comes with some default collections.
+    - we can able to import modules and plugin to the playbooks as it comes with some collection.
+    - List the collection `ansible-galaxy collection list`
+    - If need to update the collection use `ansible-galaxy collection install <collection-name>`
+
+- We can create our own collections 
+    - For Bigger Ansible projects
+    - Collections follow a simple ata structure.
+    - Required - A galaxy.yml file (containing metadata) at the root level of collection
+
+Ansible Projects
+=================
+## Automate Node App 
+1. Create a server and do ssh configuration
+2. Write Ansible Playbook
+    - Install node and npm on server
+    - Copy node artifact and unpack
+    - Start Application
+    - Verify App Running succesfully
+
+Ref - Ansible-Learning/playbook-3.yaml
+
