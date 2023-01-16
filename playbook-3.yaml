@@ -1,7 +1,8 @@
 ---
-- name: Deploying NodeJS Applicaton on Server
+- name: Deploying NodeJS Applicaton Dependencies on server 
   hosts: 172.31.87.144
   become: true
+  become_user: root
   tasks:
     - name: Update apt and repo cache
       apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
@@ -12,19 +13,34 @@
           - nodejs
           - npm
 
+---
+- name: Create New User for node app
+  hosts: 172.31.87.144
+  tasks:
+    - name: Create Linux User
+      user: 
+        name: nirdesh
+        group: admin
+        
+---
+- name: Deploy the node application
+  hosts: 172.31.87.144
+  become: yes  
+  become_user: nirdesh
+  tasks:
     - name: Unpack the app tar file and copy its data to remote server
       unarchive:
         src: /home/ubuntu/Ansible-Learning/nodejs-app-1.0.0.tgz
-        dest: /home/ubuntu/
+        dest: /home/nirdesh/
 
     - name: Install Dependencies
       npm:
-        path: /home/ubuntu/package
+        path: /home/nirdesh/package
     
     #  As command and shell modules ain't idempotent so we should use conditional statement to provide idempotency
     - name: Start the Applicaton
       command:
-        chdir: /home/ubuntu/package/app
+        chdir: /home/nirdesh/package/app
         cmd: node server
       # use this module to run node command in background othewise it will block the terminal and never exit 
       async: 1000
