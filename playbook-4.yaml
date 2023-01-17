@@ -5,8 +5,10 @@
   tasks:
     - name: Update apt and repo cache
       apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
+
     - name: Install java 8
       apt: name=openjdk-8-jre-headless
+    
     - name: Install net-tools
       apt: name=net-tools
 
@@ -14,26 +16,31 @@
   hosts: 172.31.87.144
   become: true
   tasks:
+    - name: Check Nexus Folder Stats
+      stat:
+        path: /opt/nexus
+      register: stats_result  # Checking if there is dir with name /opt/nexus 
+    
     - name: Download Nexus
       get_url:
         url: https://download.sonatype.com/nexus/3/latest-unix.tar.gz
         dest: /opt/
       register: nexus_installer # Storing the get_url result to nexus-installer variable as latest version changed frequently
+    
     - name: Unpack the nexus installer
       unarchive:
         src: "{{nexus_installer.dest}}" # Using the above stored variable finding the nexus-installer with version
         dest: /opt/
         remote_src: yes # telling unarchive module to check the unpack file on remote src
+      when: not stats_result.stat.exists
+    
     - name: Find Nexus Folder
       find:
         paths: /opt/
         pattern: "nexus-*"
         file_type: directory
       register: find_folder_name    # Finding Nexus Folder Name and Save it to variable
-    - name: Check Nexus Folder Stats
-      stat:
-        path: /opt/nexus
-      register: stats_result  # Checking if there is dir with name /opt/nexus 
+    
     - name: Renaming Nexus Folder
       shell: mv {{find_folder_name.files[0].path}} /opt/nexus
       when: not stats_result.stat.exists    # If there is not dir exists with /opt/nexus, rename the nexus folder
@@ -46,10 +53,12 @@
       group: 
         name: nexus
         state: present
+    
     - name: Ensure Nexus User
       user:
         name: nexus
         group: nexus
+    
     - name: Make nexus user owner to nexus folder
       file:
         path: /opt/nexus
@@ -57,6 +66,7 @@
         owner: nexus
         group: nexus 
         recurse: yes    # All files inside the nexus folder has owner and group as nexus
+    
     - name: Make nexus user owner to sonatype folder
       file:
         path: /opt/sonatype-work
@@ -78,6 +88,10 @@
       #     run_as_user="nexus"
       lineinfile:
         regexp: '^#run_as_user=""'  # regex use to find the line 
-        line: run_as_user="nexus"   # this line will replace the above line 
+        line: run_as_user="nexus"   # this line will replace the above line
+    
+    - name: Start nexus
+      command: /opt/nexus/bin/nexus start
+
 
 
