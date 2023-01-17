@@ -103,6 +103,9 @@ Ansible Configuration for test practice
 
 Ansible Playbook
 =================
+- playbook-1.yaml 
+- playbook-2.yaml
+
 - Ref Folder - Ansible-Learning
 
 Ansible Modules
@@ -141,7 +144,9 @@ Ansible Projects
     - Inside the Playbook
     - Refrence the outside variable file to the playbook
     - Using ansible cli `ansible-playbook playbook-3.yaml -e "version=1.0.0 location=/home/ubuntu"`
-    
+4. project-vars file used to provide variable value from outside the playbook
+
+Ref - nodejs-app-1.0.0.tgz as zip file to deploy node app
 Ref - Ansible-Learning/playbook-3.yaml
 
 ## Automate Nexus Deployment 
@@ -153,6 +158,10 @@ Ref - Ansible-Learning/playbook-3.yaml
     - Verify Nexus Running succesfully
 3. Use the register module to store the data of a task and use it in another task.
 4. Use the find module to find the nexus folder and use Shell module to rename.
+5. Use the when moduel to apply condition on renaming folder.
+6. Use user and group module to create nexus user and group.
+7. Use blockinfile module to add multiple lines in a file. It won't replace the existing same line, it will just add the lines.
+8. Use lineinfile module to replace the existing line.
 
 Ref - nexus.sh file is consider for creating playbook-4.yaml to deploy nexus using ansible
 Ref - Ansible-Learning/playbook-4.yaml
