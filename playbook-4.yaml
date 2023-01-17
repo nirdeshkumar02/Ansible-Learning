@@ -20,7 +20,7 @@
         dest: /opt/
     - name: Unpack the nexus installer
       unarchive:
-        src: /opt/nexus-*
+        src: /opt/nexus-3.45.0-01-unix.tar.gz
         dest: /opt/
         remote_src: yes  # telling unarchive module to check the unpack file on remote src 
 
