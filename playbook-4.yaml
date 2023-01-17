@@ -18,11 +18,11 @@
       get_url:
         url: https://download.sonatype.com/nexus/3/latest-unix.tar.gz
         dest: /opt/
-      register: nexus-installer # Storing the get_url result to nexus-installer variable as latest version changed frequently
+      register: nexus_installer # Storing the get_url result to nexus-installer variable as latest version changed frequently
 
     - name: Unpack the nexus installer
       unarchive:
-        src: "{{nexus-installer.dest}}" # Using the above stored variable finding the nexus-installer with version
+        src: "{{nexus_installer.dest}}" # Using the above stored variable finding the nexus-installer with version
         dest: /opt/
         remote_src: yes # telling unarchive module to check the unpack file on remote src
 
