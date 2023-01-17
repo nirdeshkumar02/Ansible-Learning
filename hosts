@@ -1,11 +1,11 @@
-[ubuntu-server]
+[ubuntu_server]
 172.31.87.144
 
-[ubuntu-server:vars]
+[ubuntu_server:vars]
 ansible_user=ubuntu
 
-[amazon-server]
+[amazon_server]
 172.31.92.208
 
-[amazon-server:vars]
+[amazon_server:vars]
 ansible_user=ec2-user
