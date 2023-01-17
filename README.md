@@ -151,6 +151,7 @@ Ref - Ansible-Learning/playbook-3.yaml
     - Run Nexus application using Nexus user
     - Start Nexus Application
     - Verify Nexus Running succesfully
+3. Use the register module to store the data of a task and use it in another task.
 
 Ref - Ansible-Learning/playbook-4.yaml
 
