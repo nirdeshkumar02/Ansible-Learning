@@ -154,6 +154,7 @@ Ref - Ansible-Learning/playbook-3.yaml
 3. Use the register module to store the data of a task and use it in another task.
 4. Use the find module to find the nexus folder and use Shell module to rename.
 
+Ref - nexus.sh file is consider for creating playbook-4.yaml to deploy nexus using ansible
 Ref - Ansible-Learning/playbook-4.yaml
 
 
