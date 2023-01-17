@@ -173,7 +173,7 @@ Ref - Ansible-Learning/playbook-4.yaml
 ## Automate Docker Deployment with Ansible
 1. Create a server with amazon linux and do ssh configuration
 2. Write Ansible Playbook
-    - Download Docker and Docker-Compose
+    - Download Python3, Docker and Docker-Compose
     - Start Docker Container to Run Applications
 
 Ref - nexus.sh file is consider for creating playbook-4.yaml to deploy nexus using ansible
