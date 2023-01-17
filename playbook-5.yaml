@@ -28,20 +28,22 @@
           - docker
           - docker-compose
 
-- name: Ensure ec2-user to docker group
+- name: Create and Add New User to Docker Group
   hosts: amazon_server
   become: yes 
   tasks:
-    - name: Ensure ec2-user to docker group 
+    - name: Create and Add New User to Docker Group
       user:
-        name: ec2-user 
-        groups: docker
+        name: nirdesh 
+        groups: docker,adm
         append: yes 
-    - name: Reconnecting to Server    # After adding user to group we reconnect to server to reflect the changes
-      meta: reset_connection
+    # - name: Reconnecting to Server    # If using existing user and added it to new group, we should reconnect to server to reflect the changes
+    #   meta: reset_connection
 
 - name: Test Docker Pull
   hosts: amazon_server
+  become: yes
+  become_user: nirdesh
   tasks:
     - name: Pull Redis Image
       docker_image:
@@ -50,6 +52,8 @@
 
 - name: Ensure Docker-Compose Application is Running
   hosts: amazon_server
+  become: yes
+  become_user: nirdesh
   # "vars_prompt" is used to take input from user on command line 
   vars_prompt:
     - name: docker_password
