@@ -144,4 +144,14 @@ Ansible Projects
     
 Ref - Ansible-Learning/playbook-3.yaml
 
+## Automate Nexus Deployment 
+1. Create a server and do ssh configuration
+2. Write Ansible Playbook
+    - Download Nexus Binary and unpack
+    - Run Nexus application using Nexus user
+    - Start Nexus Application
+    - Verify Nexus Running succesfully
+
+Ref - Ansible-Learning/playbook-4.yaml
+
 

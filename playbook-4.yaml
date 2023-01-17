@@ -1,0 +1,11 @@
+---
+- name: Deploying Server Dependencies for Nexus 
+  hosts: 172.31.87.144
+  become: true
+  tasks:
+    - name: Update apt and repo cache
+      apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
+    - name: Install java 8
+      apt: name=openjdk-8-jre-headless
+    - name: Install net-tools
+      apt: name=net-tools
