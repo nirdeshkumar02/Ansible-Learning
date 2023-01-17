@@ -133,6 +133,10 @@ Ansible Modules
 
 Ansible Projects
 =================
+
+Download acl package on remote server using `apt install acl`
+which allows the priviliged become permission to created user in ansible playbook
+
 ## Automate Node App 
 1. Create a server and do ssh configuration
 2. Write Ansible Playbook

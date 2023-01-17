@@ -6,6 +6,9 @@
     - name: Update apt and repo cache
       apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
 
+    - name: Install acl on server 
+      apt: name=acl
+
     - name: Install java 8
       apt: name=openjdk-8-jre-headless
     
@@ -96,13 +99,15 @@
 
 - name: Verifing Nexus is running or not 
   hosts: 172.31.87.144
-  become: True
-  become_user: nexus
   tasks:  
     - name: Check with ps
       shell: ps aux | grep nexus 
       register: app_status
     - debug: msg={{app_status.stdout_lines}}
+
+    - name: Wait Some Time to run netstat command
+      pause:
+        minutes: 1
 
     - name: Check with netstat
       shell: netstat -lnpt
