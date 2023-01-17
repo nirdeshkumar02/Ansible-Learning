@@ -42,7 +42,7 @@
       meta: reset_connection
 
 - name: Test Docker Pull
-  hosts: docker_server
+  hosts: amazon_server
   tasks:
     - name: Pull Redis Image
       docker_image:
