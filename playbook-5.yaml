@@ -3,8 +3,13 @@
   hosts: amazon_server
   become: yes 
   tasks:
-    - name: Install Docker
-      dnf:
-        name: docker 
+    - name: Install python3 and docker
+      vars:
+        ansible_python_interpreter: /usr/bin/python
+      yum: 
+        name: 
+          - python3
+          - docker
         update_cache: yes
         state: present
+
