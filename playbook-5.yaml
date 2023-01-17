@@ -21,6 +21,13 @@
       systemd:
         name: docker 
         state: started
+    - name: Install python modules for docker 
+      pip:
+        name: 
+          - docker
+          - docker-compose
+
+        
 
 - name: Ensure ec2-user to docker group
   hosts: amazon_server
@@ -33,6 +40,36 @@
         append: yes 
     - name: Reconnecting to Server    # After adding user to group we reconnect to server to reflect the changes
       meta: reset_connection
+
+- name: Test Docker Pull
+  hosts: docker_server
+  tasks:
+    - name: Pull Redis Image
+      docker_image:
+        name: redis
+        source: pull 
+
+- name: Ensure Docker-Compose Application is Running
+  hosts: amazon_server
+  # "vars_prompt" is used to take input from user on command line 
+  vars_prompt:
+    - name: docker_password
+      prompt: Enter Password for Docker Registry 
+  tasks:
+    - name: Copy Docker-Compose Yaml file to server
+      copy:
+        src: Ansible-Learning\docker-compose.yaml
+        dest: /home/ec2-user/docker-compose.yaml    # This docker-compose file use private repo. so, docker login is required before docker container run 
+    - name: Login to Docker 
+      docker_login:
+        registry_url: https://index.docker.io/v1/
+        username: nirdeshkumar02
+        password: "{{docker_password}}"
+    - name: Start container from compose
+      docker_compose: 
+        project_src: /home/ec2-user   
+
+
 
 
 
