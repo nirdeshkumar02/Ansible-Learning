@@ -31,7 +31,14 @@
         paths: /opt/
         pattern: "nexus-*"
         file_type: directory
-      register: find_folder_name
+      register: find_folder_name    # Finding Nexus Folder Name and Save it to variable
+
+    - name: Check Nexus Folder Stats
+      stat:
+        path: /opt/nexus
+      register: stats_result  # Checking if there is dir with name /opt/nexus 
 
     - name: Renaming Nexus Folder
       shell: mv {{find_folder_name.files[0].path}} /opt/nexus
+      when: not stats_result.stat.exists    # If there is not dir exists with /opt/nexus, rename the nexus folder
+
