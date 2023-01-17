@@ -27,8 +27,6 @@
           - docker
           - docker-compose
 
-        
-
 - name: Ensure ec2-user to docker group
   hosts: amazon_server
   become: yes 
@@ -67,7 +65,9 @@
         password: "{{docker_password}}"
     - name: Start container from compose
       docker_compose: 
-        project_src: /home/ec2-user   
+        project_src: /home/ec2-user
+      async: 1000
+      poll: 0
 
 
 
