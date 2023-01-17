@@ -1,0 +1,10 @@
+---
+- name: Install Docker
+  hosts: amazon-server
+  become: yes 
+  tasks:
+    - name: Install Docker
+      yum:
+        name: docker 
+        update_cache: yes
+        state: present
