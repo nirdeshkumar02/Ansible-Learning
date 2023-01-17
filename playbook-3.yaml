@@ -21,20 +21,28 @@
   hosts: 172.31.87.144
   become: yes  
   become_user: nirdesh
+  # define variable in this file 
+  vars:
+    - location: /home/ubuntu
+    - version: 1.0.0
+    - destination: /home/nirdesh
+  # define variable in outside the file and refrence it here
+  # vars_files:
+  #   - project-vars
   tasks:
     - name: Unpack the app tar file and copy its data to remote server
       unarchive:
-        src: /home/ubuntu/Ansible-Learning/nodejs-app-1.0.0.tgz
-        dest: /home/nirdesh/
+        src: "{{location}}/Ansible-Learning/nodejs-app-{{version}}.tgz"
+        dest: "{{destination}}"
 
     - name: Install Dependencies
       npm:
-        path: /home/nirdesh/package
+        path: "{{destination}}/package"
     
     #  As command and shell modules ain't idempotent so we should use conditional statement to provide idempotency
     - name: Start the Applicaton
       command:
-        chdir: /home/nirdesh/package/app
+        chdir: "{{destination}}/package/app"
         cmd: node server
       # use this module to run node command in background othewise it will block the terminal and never exit 
       async: 1000

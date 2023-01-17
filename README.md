@@ -137,6 +137,11 @@ Ansible Projects
     - Copy node artifact and unpack
     - Start Application
     - Verify App Running succesfully
-
+3. 3 Ways we can provide the value to variable in the playbook
+    - Inside the Playbook
+    - Refrence the outside variable file to the playbook
+    - Using ansible cli `ansible-playbook playbook-3.yaml -e "version=1.0.0 location=/home/ubuntu"`
+    
 Ref - Ansible-Learning/playbook-3.yaml
+
 
