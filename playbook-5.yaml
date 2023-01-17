@@ -58,7 +58,7 @@
   tasks:
     - name: Copy Docker-Compose Yaml file to server
       copy:
-        src: Ansible-Learning\docker-compose.yaml
+        src: /home/ubuntu/Ansible-Learning/docker-compose.yaml
         dest: /home/ec2-user/docker-compose.yaml    # This docker-compose file use private repo. so, docker login is required before docker container run 
     - name: Login to Docker 
       docker_login:
