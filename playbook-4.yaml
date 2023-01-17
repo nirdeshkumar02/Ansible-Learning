@@ -78,7 +78,7 @@
 - name: Start nexus with nexus user 
   hosts: 172.31.87.144
   become: True
-  become_user: root
+  become_user: nexus 
   tasks:  
     - name: set run_as_user nexus
       # "blockinfile" use to add lines in a file but it won't replace the existing line. and "|" use to add multiple line in a file
