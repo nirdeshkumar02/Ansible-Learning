@@ -87,6 +87,7 @@
       #   block: |    
       #     run_as_user="nexus"
       lineinfile:
+        path: /opt/nexus/bin/nexus.rc 
         regexp: '^#run_as_user=""'  # regex use to find the line 
         line: run_as_user="nexus"   # this line will replace the above line
     
