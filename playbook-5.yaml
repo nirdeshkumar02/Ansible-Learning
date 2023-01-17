@@ -1,6 +1,6 @@
 ---
 - name: Install Docker
-  hosts: amazon-server
+  hosts: amazon_server
   become: yes 
   tasks:
     - name: Install Docker
