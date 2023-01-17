@@ -17,16 +17,16 @@
         url: https://github.com/docker/compose/releases/download/1.27.4/docker-compose-Linux-{{lookup('pipe', 'uname -m')}}
         dest: /usr/local/bin/docker-compose
         mode: +x
-    - name: Start Docker Deamon
+    - name: Ensure Docker Deamon is Running
       systemd:
         name: docker 
         state: started
 
-- name: Add ec2-user to docker group
+- name: Ensure ec2-user to docker group
   hosts: amazon_server
   become: yes 
   tasks:
-    - name: Adding ec2-user to docker group 
+    - name: Ensure ec2-user to docker group 
       user:
         name: ec2-user 
         groups: docker
