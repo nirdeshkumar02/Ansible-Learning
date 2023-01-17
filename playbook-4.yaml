@@ -93,5 +93,21 @@
     - name: Start nexus
       command: /opt/nexus/bin/nexus start
 
+- name: Verifing Nexus is running or not 
+  hosts: 172.31.87.144
+  become: True
+  become_user: nexus
+  tasks:  
+    - name: Check with ps
+      shell: ps aux | grep nexus 
+      register: app_status
+    - debug: msg={{app_status.stdout_lines}}
+
+    - name: Check with netstat
+      shell: netstat -lnpt
+      register: app_status
+    - debug: msg={{app_status.stdout_lines}}
+
+
 
 
