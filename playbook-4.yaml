@@ -9,3 +9,18 @@
       apt: name=openjdk-8-jre-headless
     - name: Install net-tools
       apt: name=net-tools
+
+- name: Download and Unpack the Nexus Installer
+  hosts: 172.31.87.144
+  become: true
+  tasks:
+    - name: Download Nexus
+      get_url:
+        url: https://download.sonatype.com/nexus/3/latest-unix.tar.gz
+        dest: /opt/
+    - name: Unpack the nexus installer
+      unarchive:
+        src: /opt/nexus-*.tar.gz
+        dest: /opt/
+        remote_src: yes  # telling unarchive module to check the unpack file on remote src 
+
