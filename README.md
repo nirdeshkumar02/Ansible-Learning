@@ -170,4 +170,4 @@ Ref - Ansible-Learning/playbook-3.yaml
 Ref - nexus.sh file is consider for creating playbook-4.yaml to deploy nexus using ansible
 Ref - Ansible-Learning/playbook-4.yaml
 
-
+#### ansible.cfg file can be helpful in multiple projects where you can define your default behaviour to use by ansible.

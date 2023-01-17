@@ -4,7 +4,6 @@
 
 [ubuntu-server:vars]
 ansible_user=ubuntu
-ansible_python_interpreter=/usr/bin/python3
 
 [amazon-server]
 172.31.87.52
@@ -12,4 +11,3 @@ ansible_python_interpreter=/usr/bin/python3
 
 [amazon-server:vars]
 ansible_user=ec2-user
-ansible_python_interpreter=/usr/bin/python3
