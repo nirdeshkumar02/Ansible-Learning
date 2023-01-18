@@ -178,21 +178,55 @@ Ref - Ansible-Learning/playbook-4.yaml
 
 Ref - Ansible-Learning/playbook-5.yaml
 
-## Automate Docker Deployment with Ansible integrated with terraform
-1. Create a server with amazon linux using terraform 
+## Automate Docker Deployment with Ansible integrated with terraform (SELF)
+1. Create a server with amazon linux using terraform. Pick One from below - provisioner/null_resource
+    - Using Provisioner
     ```yaml
-     # Inside the ec2-creation resource block add the provisioner block.
-     # Add private_ssh_key variable in the variable.tf file. and pass the value of private ssh key location
-    provisioner "local_exec" {
-        working_dir = "directory where ansible playbook present"
-        command: "ansible playbook --inventory ${self.public_ip}, --private-key ${var.private_ssh_key} --user ec2-user <playbook name>"
-    }
+        # Inside the ec2-creation resource block add the provisioner block.
+        # Add private_ssh_key variable in the variable.tf file. and pass the value of private ssh key location
+        provisioner "local_exec" {
+            working_dir = "directory where ansible playbook present"
+            command: "ansible playbook --inventory ${self.public_ip}, --private-key ${var.private_ssh_key} --user ec2-user <playbook name>"
+        }
+    ```
+    - Using null resource
+    ```yaml
+        # After ec2-creation resource block use null resource.
+        # Change the Reference of inventory with your ec2-server resource reference.
+        # Add private_ssh_key variable in the variable.tf file. and pass the value of private ssh key location.
+        resource "null_resource" "configure_server" {
+            trigger = {
+                trigger = aws_instance.myapp-server.public_ip
+            }
+            provisioner "local-exec" {
+                working_dir = "directory where ansible playbook present"
+                command: "ansible playbook --inventory ${aws_instance.myapp-server.public_ip}, --private-key ${var.private_ssh_key} --user ec2-user <playbook name>"
+            }
+        }
     ```
 2. Write Ansible Playbook
     - Download Python3, Docker and Docker-Compose
     - Start Docker Container to Run Applications
 3. Change the hosts value to all inside the playbook-5.yaml
+4. At the begining of playbook-5.yaml, Add a play to check if ec2-server is up and running 
+    ```yaml
+    - name: Wait for ssh connection
+      hosts: all
+      gather_facts: False
+      tasks:
+        - name: Ensure ssh port open
+          vars:
+            ansible_connection: local
+            ansible_python_interpreter: /usr/bin/python
+          wait_for:
+            port: 22
+            delay: 10
+            timeout: 100
+            search_regex: OpenSSH
+            host: {{ (ansible_ssh_host|default(ansible_host))|default(inventory_hostname) }}
+    ```
 
+Ref - Terraform Repository On GitHub
 Ref - Ansible-Learning/playbook-5.yaml
 
 #### ansible.cfg file can be helpful in multiple projects where you can define your default behaviour to use by ansible.
