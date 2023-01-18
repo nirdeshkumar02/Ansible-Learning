@@ -150,8 +150,8 @@ which allows the priviliged become permission to created user in ansible playboo
     - Using ansible cli `ansible-playbook playbook-3.yaml -e "version=1.0.0 location=/home/ubuntu"`
 4. project-vars file used to provide variable value from outside the playbook
 
-Ref - nodejs-app-1.0.0.tgz as zip file to deploy node app
-Ref - Ansible-Learning/playbook-3.yaml
+- Ref - nodejs-app-1.0.0.tgz as zip file to deploy node app
+- Ref - Ansible-Learning/playbook-3.yaml
 
 ## Automate Nexus Deployment 
 1. Create a server and do ssh configuration
@@ -167,8 +167,8 @@ Ref - Ansible-Learning/playbook-3.yaml
 7. Use blockinfile module to add multiple lines in a file. It won't replace the existing same line, it will just add the lines.
 8. Use lineinfile module to replace the existing line.
 
-Ref - nexus.sh file is consider for creating playbook-4.yaml to deploy nexus using ansible
-Ref - Ansible-Learning/playbook-4.yaml
+- Ref - nexus.sh file is consider for creating playbook-4.yaml to deploy nexus using ansible
+- Ref - Ansible-Learning/playbook-4.yaml
 
 ## Automate Docker Deployment with Ansible
 1. Create a server with amazon linux and do ssh configuration
@@ -176,7 +176,7 @@ Ref - Ansible-Learning/playbook-4.yaml
     - Download Python3, Docker and Docker-Compose
     - Start Docker Container to Run Applications
 
-Ref - Ansible-Learning/playbook-5.yaml
+- Ref - Ansible-Learning/playbook-5.yaml
 
 ## Automate Docker Deployment with Ansible integrated with terraform (SELF)
 1. Create a server with amazon linux using terraform. Pick One from below - provisioner/null_resource
@@ -226,7 +226,7 @@ Ref - Ansible-Learning/playbook-5.yaml
             host: {{ (ansible_ssh_host|default(ansible_host))|default(inventory_hostname) }}
     ```
 
-Ref - Terraform Repository On GitHub
-Ref - Ansible-Learning/playbook-5.yaml
+- Ref - Terraform Repository On GitHub
+- Ref - Ansible-Learning/playbook-5.yaml
 
 #### ansible.cfg file can be helpful in multiple projects where you can define your default behaviour to use by ansible.
