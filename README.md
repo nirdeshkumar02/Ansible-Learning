@@ -178,4 +178,21 @@ Ref - Ansible-Learning/playbook-4.yaml
 
 Ref - Ansible-Learning/playbook-5.yaml
 
+## Automate Docker Deployment with Ansible integrated with terraform
+1. Create a server with amazon linux using terraform 
+    ```yaml
+     # Inside the ec2-creation resource block add the provisioner block.
+     # Add private_ssh_key variable in the variable.tf file. and pass the value of private ssh key location
+    provisioner "local_exec" {
+        working_dir = "directory where ansible playbook present"
+        command: "ansible playbook --inventory ${self.public_ip}, --private-key ${var.private_ssh_key} --user ec2-user <playbook name>"
+    }
+    ```
+2. Write Ansible Playbook
+    - Download Python3, Docker and Docker-Compose
+    - Start Docker Container to Run Applications
+3. Change the hosts value to all inside the playbook-5.yaml
+
+Ref - Ansible-Learning/playbook-5.yaml
+
 #### ansible.cfg file can be helpful in multiple projects where you can define your default behaviour to use by ansible.
