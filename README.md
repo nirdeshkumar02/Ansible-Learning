@@ -229,4 +229,49 @@ which allows the priviliged become permission to created user in ansible playboo
 - Ref - Terraform Repository On GitHub
 - Ref - Ansible-Learning/playbook-5.yaml
 
-#### ansible.cfg file can be helpful in multiple projects where you can define your default behaviour to use by ansible.
+## Automate Dynamic Inventory 
+- Managing an inventory, which fluctuates over time.
+- Hosts creation and deletion all the time.
+- eg - auto-scaling to accomodate for business demands
+So, Hard-Coding the IP addresses isn't good idea. We wanna dynamically set them in the ansible host file.
+
+- Project Workflow 
+    - Create 3 EC2 Instance with Terraform 
+    - Connect to these servers with Ansible without hardcoding the IP addresses
+        ```yaml
+        # To get the ip of recently created servers, we need to connect the aws using ansible and fetch the ip.
+        # Inventory Script/Inventory Plugins - Inventory Plugins are the recommeded options.
+        - Enable Inventory Plugin in ansible.cfg "enable_plugins = amazon.aws.aws_ec2".
+        - Create a "dynamic_inventory_aws_ec2.yaml" file to fetch hosts dynamically.
+        - Add this code inside that "dynamic_inventory_aws_ec2.yaml" file.
+            ---
+            plugin: aws_ec2
+            regions: 
+            - us-east-1
+            keyed_groups:
+            - key: tags
+                prefix: tag
+            - key: instance_type
+                prefix: instance_type
+        - To check this plugin working, run command "ansible-inventory -i <file name> --graph"
+        - It will return the public dns to connect from anywhere.
+        - If you getting private dns then you need to run ansible automation inside the same vpc.
+        ```
+    - Use the dynamic invetory ansible host file for ansible automation by ref in ansible-playbook
+        ```
+        - Replace hosts in playbook-6 with "@aws_ec2" this group is by default getting through plugins. 
+        ```
+    - Configure private ssh key and user globally.
+        ```
+        # In ansible.cfg - add these params also
+        remote_user = ec2-user
+        private_key_file = ~/.ssh/id_rsa
+        ```
+    - Now Run the ansible playbook `ansible-playbook -i dynamic_inventory_aws_ec2.yaml playbook-6.yaml`
+    - or replace the inventory file inside ansible.cfg from hosts to dynamic_inventory_aws_ec2.yaml
+
+- Ref - playbook-6.yaml
+- Ref - ansible.cfg
+- Ref - dynamic_inventory_aws_ec2.yaml
+
+### ansible.cfg file can be helpful in multiple projects where you can define your default behaviour to use by ansible.

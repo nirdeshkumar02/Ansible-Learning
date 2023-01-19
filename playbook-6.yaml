@@ -1,0 +1,74 @@
+---
+- name: Install Python3, Docker and Docker-Compose 
+  hosts: @aws_ec2  # Ref group getting from dynamic invetory
+  become: yes 
+  gather_facts: False
+  tasks:
+    - name: Install python3 and docker
+      vars:
+        ansible_python_interpreter: /usr/bin/python
+      yum: 
+        name: 
+          - python3
+          - docker
+        update_cache: yes
+        state: present
+    - name: Install Docker-Compose
+      get_url:
+        url: https://github.com/docker/compose/releases/download/1.27.4/docker-compose-Linux-{{lookup('pipe', 'uname -m')}}
+        dest: /usr/local/bin/docker-compose
+        mode: +x
+    - name: Ensure Docker Deamon is Running
+      systemd:
+        name: docker 
+        state: started
+    - name: Install python modules for docker 
+      pip:
+        name: 
+          - docker
+          - docker-compose
+
+- name: Ensure ec2-user added to Docker Group
+  hosts: @aws_ec2
+  become: yes 
+  tasks:
+    - name: Ensure ec2-user added to Docker Group
+      user:
+        name: ec2-user  
+        groups: docker 
+        append: yes 
+    - name: Reconnecting to Server    # If using existing user and added it to new group, we should reconnect to server to reflect the changes
+      meta: reset_connection
+
+- name: Test Docker Pull
+  hosts: @aws_ec2
+  tasks:
+    - name: Pull Redis Image
+      docker_image:
+        name: redis
+        source: pull 
+
+- name: Ensure Docker-Compose Application is Running
+  hosts: @aws_ec2
+  # "vars_prompt" is used to take input from user on command line 
+  vars_prompt:
+    - name: docker_password
+      prompt: Enter Password for Docker Registry 
+  tasks:
+    - name: Copy Docker-Compose Yaml file to server
+      copy:
+        src: /home/ubuntu/Ansible-Learning/docker-compose.yaml
+        dest: /home/ec2-user/docker-compose.yaml    # This docker-compose file use private repo. so, docker login is required before docker container run 
+    - name: Login to Docker 
+      docker_login:
+        registry_url: https://index.docker.io/v1/
+        username: nirdeshkumar02
+        password: "{{docker_password}}"
+    - name: Start container from compose
+      docker_compose: 
+        project_src: /home/ec2-user
+
+
+
+
+

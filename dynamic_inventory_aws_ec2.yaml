@@ -1,0 +1,9 @@
+---
+plugin: aws_ec2
+regions: 
+  - us-east-1
+# add filters to fetch specific server whose pass these params 
+# eg I wanna fetch the server whose tag is prod
+keyed_groups:
+  - key: Env
+    prefix: prod
