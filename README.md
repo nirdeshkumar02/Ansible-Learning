@@ -270,6 +270,7 @@ So, Hard-Coding the IP addresses isn't good idea. We wanna dynamically set them 
     - Now Run the ansible playbook `ansible-playbook -i dynamic_inventory_aws_ec2.yaml playbook-6.yaml`
     - or replace the inventory file inside ansible.cfg from hosts to dynamic_inventory_aws_ec2.yaml
 
+- Ref - Create your own tf file to create ec2 
 - Ref - playbook-6.yaml
 - Ref - ansible.cfg
 - Ref - dynamic_inventory_aws_ec2.yaml
