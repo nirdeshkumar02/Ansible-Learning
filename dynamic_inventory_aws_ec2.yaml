@@ -4,6 +4,11 @@ regions:
   - us-east-1
 # add filters to fetch specific server whose pass these params 
 # eg I wanna fetch the server whose tag is prod
+filters:
+  tag:Name: prod-*
+  instance-state-name: running
+# devided list of inventory data into their own groups
+# prod servers comes in prod-group, dev servers comes in dev-group
 keyed_groups:
-  - key: Env
-    prefix: prod
+  - key: tags  # it will create groups on basis of tags 
+    prefix: "tag"  # group name will start with this prefix like "@tag_Name_dev_server"
