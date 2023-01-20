@@ -1,0 +1,16 @@
+---
+- name: Deploy app in new namespace
+  hosts: localhost
+  tasks:
+    - name: Create a k8s namespace
+      k8s:
+        name: my-app
+        api_version: v1
+        kind: Namespace
+        state: present
+        # kubeconfig: "location of config file"  # else it will default look in ~/.kube/config 
+    - name: Deploy nginx app 
+      k8s:
+        src: Ansible-Learning\deploy-to-k8s.yaml
+        state: present
+        namespace: my-app

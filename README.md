@@ -275,4 +275,33 @@ So, Hard-Coding the IP addresses isn't good idea. We wanna dynamically set them 
 - Ref - ansible.cfg
 - Ref - dynamic_inventory_aws_ec2.yaml
 
+## Automate K8s Deployment 
+- Create K8s Cluster on AWS using TF file
+- Configure Ansible to connect to EKS Cluster
+    ```yaml
+    - Create a new yaml file "deploy-to-k8s.yaml"
+    - Add this code 
+    ---
+        - name: Deploy app in new namespace
+        hosts: localhost
+        tasks:
+            - name: Create a k8s namespace
+            community.kubernetes.k8s:
+                name: my-app
+                api_version: v1
+                kind: Namespace
+                state: present
+            - name: Deploy nginx app 
+            community.kubernetes.k8s:
+                src: 
+                state: present
+                namespace: my-app
+    ```
+- Deploy Deployment and Service Component
+
+- Ref - Terraform-Learning/eks-deployment
+- Ref   deploy-to-k8s.yaml
+- Ref - kubeconfig file if another location then "~/.kube/config"
+- Ref - nginx.k8.yaml
+
 ### ansible.cfg file can be helpful in multiple projects where you can define your default behaviour to use by ansible.
