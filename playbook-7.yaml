@@ -14,3 +14,4 @@
         src: Ansible-Learning\deploy-to-k8s.yaml
         state: present
         namespace: my-app
+        # kubeconfig: "location of config file"  # else it will default look in ~/.kube/config
