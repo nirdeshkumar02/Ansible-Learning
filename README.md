@@ -298,9 +298,15 @@ So, Hard-Coding the IP addresses isn't good idea. We wanna dynamically set them 
                 namespace: my-app
     ```
 - Deploy Deployment and Service Component
+    ```
+    - Create a new nginx conf file "nginx.k8.yaml"
+    - Add kubernetes conf in that file
+    - Ref to "nginx.k8.yaml"
+    ```
+- Run the ansible playbook
 
 - Ref - Terraform-Learning/eks-deployment
-- Ref   deploy-to-k8s.yaml
+- Ref   playbook-7.yaml
 - Ref - kubeconfig file if another location then "~/.kube/config"
 - Ref - nginx.k8.yaml
 

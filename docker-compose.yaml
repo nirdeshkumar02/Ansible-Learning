@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 services:
   java-app:
     container_name: my-java-app
@@ -9,7 +9,7 @@ services:
       - DB_SERVER=mysql
       - DB_NAME=my-app-db
     ports:
-    - 8080:8080
+      - 8080:8080
   mysql:
     container_name: mysql
     image: mysql
@@ -21,7 +21,7 @@ services:
       - MYSQL_USER=user
       - MYSQL_PASSWORD=pass
     volumes:
-    - mysql-data:/var/lib/mysql
+      - mysql-data:/var/lib/mysql
   phpmyadmin:
     container_name: myadmin
     image: phpmyadmin
