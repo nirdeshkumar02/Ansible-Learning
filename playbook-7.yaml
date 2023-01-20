@@ -9,6 +9,7 @@
         kind: Namespace
         state: present
         # kubeconfig: "location of config file"  # else it will default look in ~/.kube/config 
+        # or set kubeconfig file in env "k8S_AUTH_KUBECONFIG"
     - name: Deploy nginx app 
       k8s:
         src: Ansible-Learning\deploy-to-k8s.yaml
