@@ -310,4 +310,31 @@ So, Hard-Coding the IP addresses isn't good idea. We wanna dynamically set them 
 - Ref - kubeconfig file if another location then "~/.kube/config"
 - Ref - nginx.k8.yaml
 
+## Ansible Roles
+- Ansible Roles helps in grouping your content in roles
+- It Break Up large playbooks into smaller manageable files
+- Ansible Roles Break Up in 
+    - Tasks that the role executes - tasks/main.yaml
+    - Static File that the role deploys - files/my-file.yaml
+    - Default Variable for tasks - default/main.yaml , vars/main.yaml
+    - Custom Modules which are used within role - library/my_module.py
+- You can get predefined roles from community like -
+    - Ansible Galaxy
+    - Git Repository
+
+### How to Create and Use Ansible roles by restructuring the "playbook-5.yaml"
+
+1. Create a folder roles and inside this folder create two another folders with name create_user, start_containers
+2. Inside these folders (create_user, start_containers), there is a min a single folder required with name tasks.
+3. Put the tasks inside these main.yaml file respectively.
+4. Ref the folder name to the playbook you want to use the role. 'deploy-docker-with-roles.yaml'
+5. Create a folder name "files" inside "start_containers" and put docker-compose.yaml file there.
+6. Create two folder defaults and vars inside "start_containers"
+7. Inside Vars/main.yaml add key pair which you want to parameterized. and its default value should be in default/main.yaml
+8. Parameterized the key value inside tasks/main.yaml by ref their key
+
+
+Take Ref - Ansible-Learning/roles
+         - deploy-docker-with-roles.yaml
+
 ### ansible.cfg file can be helpful in multiple projects where you can define your default behaviour to use by ansible.
